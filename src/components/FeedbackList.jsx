@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 function FeedbackList() {
-  const {feedback,feedbackDelete} = useContext(FeedbackContext);
+  const {feedback} = useContext(FeedbackContext);
   return (
     <div className="feedback-list">
       {feedback.map(item => (
-        <FeedbackItem key={item.id} item={item} handleDelete={feedbackDelete} />
+        <FeedbackItem key={item.id} item={item} />
       ))}
     </div>
   )
