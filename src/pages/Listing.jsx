@@ -5,6 +5,16 @@ import { getAuth } from 'firebase/auth'
 import { db } from '../firebase.config'
 import Spinner from '../components/Spinner'
 import shareIcon from '../assets/svg/shareIcon.svg'
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 
 function Listing() {
   const [listing, setListing] = useState(null)
@@ -33,7 +43,13 @@ function Listing() {
   return (
     <main>
       {/* House Image Slider Goes Here  */}
-
+      <Swiper modules={[Navigation, Pagination, Scrollbar, A11y]} slidesPerView={1} pagination={{ clickable: true }}>
+        {listing.imageUrls.map((imageUrl, index) => (
+          <SwiperSlide key={index}>
+            <div className="swiperSlideDiv" style={{ background: `url(${imageUrl}) center no-repeat`, height: 400, backgroundSize: 'cover' }}></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div className="shareIconDiv" onClick={() => {
         navigator.clipboard.writeText(window.location.href);
         setShareLinkCopied(true)
@@ -74,7 +90,17 @@ function Listing() {
         </ul>
 
         <p className="listingLocationTitle">Location</p>
-        {/* Map Goes Here */}
+        <div className="leafletContainer">
+          <MapContainer style={{ height: '100%', width: '100%' }} center={[listing.geoLocation.lat, listing.geoLocation.lng]} zoom={13} scrollWheelZoom={true} >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[listing.geoLocation.lat, listing.geoLocation.lng]}>
+              <Popup>{listing.location}</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
 
         {/*Display the Contact Details if the listing is not created by user  */}
         {auth.currentUser?.uid !== listing.userRef && (
