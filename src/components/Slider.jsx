@@ -31,7 +31,6 @@ function Slider() {
 
       setListings(listings)
 
-      console.log(listings)
       setLoading(false)
     }
     fetchListings()
