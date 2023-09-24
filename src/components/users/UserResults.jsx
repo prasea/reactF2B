@@ -3,10 +3,10 @@ import GithubContext from '../../context/github/GithubContext'
 import UserItem from './UserItem'
 
 function UserResults() {
-  const { users, loading, fetchUsers } = useContext(GithubContext)
+  const { users, loading } = useContext(GithubContext)
 
   useEffect(() => {
-    fetchUsers();
+
   }, [])
   if (loading)
     return <h1>Loading . . . </h1>
