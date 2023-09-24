@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import GithubContext from '../../context/github/GithubContext';
-
+import { toast } from 'react-toastify'
 function UserSearch() {
   const [text, setText] = useState('');
   const { users, searchUsers, clearUsers } = useContext(GithubContext)
@@ -10,7 +10,7 @@ function UserSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alert('Please enter something');
+      toast.error("Please enter something")
     } else {
       searchUsers(text);
       setText('')

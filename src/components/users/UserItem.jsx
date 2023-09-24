@@ -1,5 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
+
 function UserItem({ user: { login, avatar_url } }) {
   return (
     <div className="card shadow-md compact side bg-base-100">

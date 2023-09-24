@@ -4,7 +4,10 @@ import Footer from "./components/layouts/Foooter";
 import Home from './components/pages/Home'
 import About from './components/pages/About'
 import NotFound from './components/pages/NotFound'
+import User from './components/pages/User'
 import { GithubProvider } from "./context/github/GithubContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <GithubProvider>
@@ -17,12 +20,14 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/not-found" element={<NotFound />} />
               <Route path="/*" element={<NotFound />} />
+              <Route path="/users/:login" element={<User />} />
             </Routes>
           </main>
           <Footer />
         </div>
       </Router>
-    </GithubProvider>
+      <ToastContainer />
+    </GithubProvider >
   )
 }
 
